@@ -10,7 +10,27 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
+  }
 
+  componentDidMount () {
+    this.getRepos();
+  }
+
+  addRepos (repos) {
+    this.setState({repos: repos});
+  }
+
+  getRepos (username) {
+    fetch('http://localhost:1128/repos?user=' + username, {
+      method: 'get',
+      // data: {username: username}
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then(data => {
+      this.addRepos(data);
+    }) 
   }
 
   search (term) {
@@ -23,12 +43,9 @@ class App extends React.Component {
       },
       body: JSON.stringify({username: term})
     })
-    .then((res) => {
-      return res.json();
+    .then(() => {
+      this.getRepos(term);
     })
-    .then(data => {
-      console.log(data);
-    }) 
   }
 
   render () {
