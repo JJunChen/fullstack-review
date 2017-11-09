@@ -16,6 +16,19 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    fetch('http://localhost:1128/repos', {
+      method: 'post',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify({username: term})
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+    }) 
   }
 
   render () {
