@@ -29,9 +29,7 @@ let save = (repos, username) => {
   	var newRepo = new Repo(repoInfo);
   	newRepo.save()
   	.then(item => {
-  		console.log('added');
   		if (i === repos.length - 1) {
-  			console.log('here');
   			return find(username);
   		}
   	})
